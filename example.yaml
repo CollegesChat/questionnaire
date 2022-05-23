@@ -1,0 +1,11 @@
+version: 1.0.0
+
+sections:
+- name: Network
+  questions:
+  - id: 0
+    title: What's your network speed?
+    type: number_with_unit
+    args:
+      units: [ 'Kbps', 'Mbps', 'Gbps' ]
+      base: 1024
