@@ -1,0 +1,245 @@
+{
+    "$defs": {
+        "AnyQuestion": {
+            "discriminator": {
+                "mapping": {
+                    "checkbox": "#/$defs/CheckboxQuestion",
+                    "fill_blank": "#/$defs/FillBlankQuestion",
+                    "radio": "#/$defs/RadioQuestion",
+                    "text_area": "#/$defs/TextAreaQuestion"
+                },
+                "propertyName": "type"
+            },
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/RadioQuestion"
+                },
+                {
+                    "$ref": "#/$defs/CheckboxQuestion"
+                },
+                {
+                    "$ref": "#/$defs/FillBlankQuestion"
+                },
+                {
+                    "$ref": "#/$defs/TextAreaQuestion"
+                }
+            ]
+        },
+        "CheckboxQuestion": {
+            "properties": {
+                "num": {
+                    "title": "Num",
+                    "type": "integer"
+                },
+                "title": {
+                    "default": "",
+                    "title": "Title",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "checkbox",
+                    "default": "checkbox",
+                    "title": "Type",
+                    "type": "string"
+                },
+                "required": {
+                    "default": true,
+                    "title": "Required",
+                    "type": "boolean"
+                },
+                "prompt": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Prompt"
+                },
+                "options": {
+                    "items": {
+                        "$ref": "#/$defs/Option"
+                    },
+                    "title": "Options",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "num",
+                "options"
+            ],
+            "title": "CheckboxQuestion",
+            "type": "object"
+        },
+        "FillBlankQuestion": {
+            "properties": {
+                "num": {
+                    "title": "Num",
+                    "type": "integer"
+                },
+                "title": {
+                    "default": "",
+                    "title": "Title",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "fill_blank",
+                    "default": "fill_blank",
+                    "title": "Type",
+                    "type": "string"
+                },
+                "required": {
+                    "default": true,
+                    "title": "Required",
+                    "type": "boolean"
+                },
+                "prompt": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Prompt"
+                },
+                "blank_count": {
+                    "default": 1,
+                    "title": "Blank Count",
+                    "type": "integer"
+                },
+                "regex": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "Regex",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "num",
+                "regex"
+            ],
+            "title": "FillBlankQuestion",
+            "type": "object"
+        },
+        "Option": {
+            "description": "选项的定义",
+            "properties": {
+                "text": {
+                    "title": "Text",
+                    "type": "string"
+                },
+                "has_additional": {
+                    "default": false,
+                    "title": "Has Additional",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "text"
+            ],
+            "title": "Option",
+            "type": "object"
+        },
+        "RadioQuestion": {
+            "properties": {
+                "num": {
+                    "title": "Num",
+                    "type": "integer"
+                },
+                "title": {
+                    "default": "",
+                    "title": "Title",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "radio",
+                    "default": "radio",
+                    "title": "Type",
+                    "type": "string"
+                },
+                "required": {
+                    "default": true,
+                    "title": "Required",
+                    "type": "boolean"
+                },
+                "prompt": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Prompt"
+                },
+                "options": {
+                    "items": {
+                        "$ref": "#/$defs/Option"
+                    },
+                    "title": "Options",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "num",
+                "options"
+            ],
+            "title": "RadioQuestion",
+            "type": "object"
+        },
+        "TextAreaQuestion": {
+            "properties": {
+                "num": {
+                    "title": "Num",
+                    "type": "integer"
+                },
+                "title": {
+                    "default": "",
+                    "title": "Title",
+                    "type": "string"
+                },
+                "type": {
+                    "const": "text_area",
+                    "default": "text_area",
+                    "title": "Type",
+                    "type": "string"
+                },
+                "required": {
+                    "default": true,
+                    "title": "Required",
+                    "type": "boolean"
+                },
+                "prompt": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Prompt"
+                }
+            },
+            "required": [
+                "num"
+            ],
+            "title": "TextAreaQuestion",
+            "type": "object"
+        }
+    },
+    "items": {
+        "$ref": "#/$defs/AnyQuestion"
+    },
+    "type": "array"
+}
