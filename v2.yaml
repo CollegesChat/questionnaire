@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=./schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/CollegesChat/questionnaire/refs/heads/main/schema.json
 - num: 1
   title: 如果您在主观题中留下了精彩见解，并希望在最终报告中获得署名，请留下您的常用网名/代号（留空则视为自愿以‘匿名受访者’身份参与开源共享）：[___________]
   type: fill_blank
@@ -6,7 +6,7 @@
   prompt: "（1到4字）"
   blank_count: 1
   regex:
-    - ""
+    - "^([\\u4e00-\\u9fa5]{1,4}|[a-zA-Z]{1,8})$"
 - num: 2
   title: 你的学校是全称是？
   type: fill_blank
@@ -14,7 +14,7 @@
   prompt:
   blank_count: 1
   regex:
-    - ""
+    - "^.{4,12}$"
 - num: 3
   title: 学信网验证（可选）
   type: fill_blank
@@ -22,7 +22,7 @@
   prompt: 需前往学信网获取并填写验证码，程序将自动验证，并在最终问卷处标记。(此项数据不会对外公开可见，仅标注确认是否为本校学生)
   blank_count: 1
   regex:
-    - ""
+    - "^[0-9]{12}|[0-9]{16}$"
 - num: 4
   title: 你的入学年份及就读专业是什么？___年入学，专业为___
   type: fill_blank
@@ -30,8 +30,8 @@
   prompt:
   blank_count: 2
   regex:
-    - ""
-    - ""
+    - "^(201[0-9]|202[0-9])$"
+    - "^.+$"
 - num: 5
   title: 你的培养层次是？
   type: radio
@@ -53,7 +53,7 @@
   prompt:
   blank_count: 1
   regex:
-    - ""
+    - "^.+$"
 - num: 7
   title: 学校转专业容易吗？（可选）
   type: radio
@@ -75,7 +75,7 @@
   prompt:
   blank_count: 1
   regex:
-    - ""
+    - "^.{5,}$"
 - num: 9
   title: 实验室与工位硬件条件如何？
   type: fill_blank
@@ -83,7 +83,7 @@
   prompt:
   blank_count: 1
   regex:
-    - ""
+    - "^.{5,}$"
 - num: 10
   title: 研究生的补助与福利待遇大概在什么水平？
   type: fill_blank
@@ -91,7 +91,7 @@
   prompt:
   blank_count: 1
   regex:
-    - ""
+    - "^.+$"
 - num: 11
   title: 是否存在“异地研究院/分院/校外基地”联培情况？生存现状如何？（没有请跳过）
   type: fill_blank
@@ -105,7 +105,7 @@
     3. 神仙还是流放：是避开了本部领导查寝、过得更自由？还是像个被学校遗忘的编外打工人，办事盖章极其麻烦？
   blank_count: 1
   regex:
-    - ""
+    - "^.*$"
 - num: 12
   title: 宿舍的床位结构是怎样的？
   type: checkbox
@@ -167,7 +167,7 @@
   prompt:
   blank_count: 1
   regex:
-    - ""
+    - "^.+$"
 - num: 17
   title: 每天会断电断网吗？
   type: checkbox
@@ -185,7 +185,7 @@
   prompt: 不知道请跳过。
   blank_count: 1
   regex:
-    - ""
+    - "^.*[\\u4e00-\\u9fa5]+.*$"
 - num: 19
   title: 大一刚入学允许带电脑吗？
   type: radio
@@ -219,7 +219,7 @@
   prompt:
   blank_count: 1
   regex:
-    - ""
+    - "^.{5,}$"
 - num: 22
   title: 校园网的收费和网络质量如何？
   type: fill_blank
@@ -227,7 +227,7 @@
   prompt:
   blank_count: 1
   regex:
-    - ""
+    - "^.+$"
 - num: 23
   title: 校园内用什么卡消费？
   type: checkbox
@@ -251,7 +251,7 @@
   prompt: 能发哪些快递？快递点离宿舍多远？快递点上下班时间？
   blank_count: 1
   regex:
-    - ""
+    - "^.+$"
 - num: 25
   title: 校园内超市的物价和服务怎么样？
   type: checkbox
@@ -339,7 +339,7 @@
   prompt: 以及是否能用自行车/滑板车“刷”跑步App数据？
   blank_count: 1
   regex:
-    - ""
+    - "^.+$"
 - num: 32
   title: 寒暑假一般放多久？有小学期吗？有的话是多长？
   type: fill_blank
@@ -347,7 +347,7 @@
   prompt:
   blank_count: 1
   regex:
-    - ""
+    - "^.+$"
 - num: 33
   title: 自习资源和图书馆体验如何？
   type: fill_blank
@@ -355,7 +355,7 @@
   prompt: 以及学校是否有24小时开放的通宵自习室？
   blank_count: 1
   regex:
-    - ""
+    - "^.{5,}$"
 - num: 34
   title: 自由补充
   type: text_area
