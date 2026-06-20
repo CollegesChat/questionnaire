@@ -1,0 +1,186 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/CollegesChat/questionnaire/refs/heads/main/schema.json
+
+- num: 1
+  title: "您是否愿意向我们共享您的邮箱？"
+  type: "radio"
+  required: true
+  options:
+    - text: "是"
+    - text: "否，我选择将数据所有权让渡给数据收集方"
+
+- num: 2
+  title: "您的邮箱是？"
+  type: "fill_blank"
+  required: true
+  prompt: "请填写email"
+  regex: []
+
+- num: 3
+  title: "您是否愿意公开您的邮箱？"
+  type: "radio"
+  required: true
+  options:
+    - text: "是"
+    - text: "否，我要求数据收集方在再发布时移除数据中标识的身份信息"
+
+- num: 4
+  title: "您的学校全称是？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 5
+  title: "宿舍是上床下桌吗？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 6
+  title: "教室和宿舍有没有空调？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 7
+  title: "有独立卫浴吗？没有独立浴室的话，澡堂离宿舍多远？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 8
+  title: "有早自习、晚自习吗？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 9
+  title: "有晨跑吗？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 10
+  title: "每学期跑步打卡的要求是多少公里，可以骑车吗？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 11
+  title: "寒暑假放多久，每年小学期有多长？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 12
+  title: "学校允许点外卖吗，取外卖的地方离宿舍楼多远？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 13
+  title: "学校交通便利吗，有地铁吗，在市区吗，不在的话进城要多久？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 14
+  title: "宿舍楼有洗衣机吗？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 15
+  title: "校园网怎么样？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 16
+  title: "每天断电断网吗，几点开始断？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 17
+  title: "食堂价格贵吗，会吃出异物吗？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 18
+  title: "洗澡热水供应时间？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 19
+  title: "校园内可以骑电瓶车吗，电池在哪能充电？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 20
+  title: "宿舍限电情况？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 21
+  title: "通宵自习有去处吗？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 22
+  title: "大一能带电脑吗？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 23
+  title: "学校里面用什么卡，饭堂怎样消费？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 24
+  title: "学校会给学生发银行卡吗？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 25
+  title: "学校的超市怎么样？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 26
+  title: "学校的收发快递政策怎么样？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 27
+  title: "学校里面的共享单车数目与种类如何？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 28
+  title: "现阶段学校的门禁情况如何？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 29
+  title: "宿舍晚上查寝吗，封寝吗，晚归能回去吗？"
+  type: "fill_blank"
+  required: true
+  regex: []
+
+- num: 30
+  title: "还有什么要说的吗？"
+  type: "fill_blank"
+  required: false
+  regex: []
