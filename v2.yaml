@@ -16,23 +16,15 @@
   regex:
     - "^.{4,12}$"
 - num: 3
-  title: 学信网验证（可选）
-  type: fill_blank
-  required: false
-  prompt: 需前往学信网获取并填写验证码，程序将自动验证，并在最终问卷处标记。(此项数据不会对外公开可见，仅标注确认是否为本校学生)
-  blank_count: 1
-  regex:
-    - "^[0-9]{12}|[0-9]{16}$"
-- num: 4
   title: 你的入学年份及就读专业是什么？___年入学，专业为___
   type: fill_blank
   required: true
   prompt:
   blank_count: 2
   regex:
-    - "^(201[0-9]|202[0-9])$"
+    - "^(201[0-9]|202[0-9])-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
     - "^.+$"
-- num: 5
+- num: 4
   title: 你的培养层次是？
   type: radio
   required: true
@@ -46,7 +38,7 @@
       has_additional: false
     - text: 博士研究生
       has_additional: false
-- num: 6
+- num: 5
   title: 你目前在哪一个校区就读？
   type: fill_blank
   required: true
@@ -54,7 +46,7 @@
   blank_count: 1
   regex:
     - "^.+$"
-- num: 7
+- num: 6
   title: 学校转专业容易吗？（可选）
   type: radio
   required: false
@@ -68,31 +60,31 @@
       has_additional: false
     - text: 政策不允许转专业
       has_additional: false
-- num: 8
+- num: 7
   title: 导师管理风格与组内学术氛围如何？
   type: fill_blank
-  required: true
+  required: false
+  prompt:
+  blank_count: 1
+  regex:
+    - "^.{5,}$"
+- num: 8
+  title: 实验室与工位硬件条件如何？
+  type: fill_blank
+  required: false
   prompt:
   blank_count: 1
   regex:
     - "^.{5,}$"
 - num: 9
-  title: 实验室与工位硬件条件如何？
-  type: fill_blank
-  required: true
-  prompt:
-  blank_count: 1
-  regex:
-    - "^.{5,}$"
-- num: 10
   title: 研究生的补助与福利待遇大概在什么水平？
   type: fill_blank
-  required: true
+  required: false
   prompt:
   blank_count: 1
   regex:
     - "^.+$"
-- num: 11
+- num: 10
   title: 是否存在“异地研究院/分院/校外基地”联培情况？生存现状如何？（没有请跳过）
   type: fill_blank
   required: false
@@ -106,7 +98,7 @@
   blank_count: 1
   regex:
     - "^.*$"
-- num: 12
+- num: 11
   title: 宿舍的床位结构是怎样的？
   type: checkbox
   required: true
@@ -124,7 +116,7 @@
       has_additional: true
     - text: 八人间或者更多 / 看交的钱
       has_additional: true
-- num: 13
+- num: 12
   title: 教室和宿舍有空调吗？
   type: checkbox
   required: true
@@ -134,7 +126,7 @@
       has_additional: true
     - text: 宿舍有
       has_additional: true
-- num: 14
+- num: 13
   title: 宿舍有独立卫浴吗？
   type: checkbox
   required: true
@@ -146,21 +138,7 @@
       has_additional: true
     - text: 完全没有
       has_additional: true
-- num: 15
-  title: 宿舍允许挂遮光床帘吗？
-  type: radio
-  required: true
-  prompt:
-  options:
-    - text: 允许挂床帘
-      has_additional: false
-    - text: 表面禁止但私下挂没人管
-      has_additional: false
-    - text: 严查，一经发现强制拆除
-      has_additional: false
-    - text: 看宿管心情和查寝严格度
-      has_additional: false
-- num: 16
+- num: 14
   title: 宿舍楼的洗衣机配置如何？
   type: fill_blank
   required: true
@@ -168,7 +146,7 @@
   blank_count: 1
   regex:
     - "^.+$"
-- num: 17
+- num: 15
   title: 每天会断电断网吗？
   type: checkbox
   required: false
@@ -178,7 +156,7 @@
       has_additional: true
     - text: 断网
       has_additional: true
-- num: 18
+- num: 16
   title: 宿舍的限电功率是多少？会没收违禁电器吗 / 查违章电器严不严？（可选）
   type: fill_blank
   required: false
@@ -186,7 +164,7 @@
   blank_count: 1
   regex:
     - "^.*[\\u4e00-\\u9fa5]+.*$"
-- num: 19
+- num: 17
   title: 大一刚入学允许带电脑吗？
   type: radio
   required: true
@@ -198,7 +176,7 @@
       has_additional: false
     - text: 表面不允许但带了也没人管
       has_additional: false
-- num: 20
+- num: 18
   title: 晚上宿舍会查寝或封寝吗？
   type: radio
   required: true
@@ -212,15 +190,15 @@
       has_additional: false
     - text: 完全不管（无门禁无查寝）
       has_additional: false
-- num: 21
+- num: 19
   title: 食堂的价格与卫生质量如何？
   type: fill_blank
   required: true
   prompt:
   blank_count: 1
   regex:
-    - "^.{5,}$"
-- num: 22
+    - "^.{1,}$"
+- num: 20
   title: 校园网的收费和网络质量如何？
   type: fill_blank
   required: true
@@ -228,7 +206,7 @@
   blank_count: 1
   regex:
     - "^.+$"
-- num: 23
+- num: 21
   title: 校园内用什么卡消费？
   type: checkbox
   required: true
@@ -244,7 +222,7 @@
       has_additional: false
     - text: 其他
       has_additional: true
-- num: 24
+- num: 22
   title: 学校的快递收发政策怎么样？
   type: fill_blank
   required: true
@@ -252,7 +230,7 @@
   blank_count: 1
   regex:
     - "^.+$"
-- num: 25
+- num: 23
   title: 校园内超市的物价和服务怎么样？
   type: checkbox
   required: true
@@ -270,7 +248,7 @@
       has_additional: false
     - text: 种类少
       has_additional: false
-- num: 26
+- num: 24
   title: 学校允许点外卖吗？
   type: radio
   required: true
@@ -282,7 +260,7 @@
       has_additional: true
     - text: 严禁点外卖，抓到会通报或没收
       has_additional: false
-- num: 27
+- num: 25
   title: 校园内可以骑私家电瓶车吗？
   type: radio
   required: true
@@ -294,7 +272,7 @@
       has_additional: true
     - text: 严禁学生骑行和停放私家电瓶车
       has_additional: false
-- num: 28
+- num: 26
   title: 校内共享单车的数量与种类如何？
   type: radio
   required: true
@@ -306,7 +284,7 @@
       has_additional: false
     - text: 校内完全没有共享单车
       has_additional: false
-- num: 29
+- num: 27
   title: 学校周边的交通便利度如何？
   type: radio
   required: true
@@ -318,7 +296,7 @@
       has_additional: true
     - text: 偏僻，进城单程需要一小时以上
       has_additional: true
-- num: 30
+- num: 28
   title: 日常考勤管理严格吗？
   type: checkbox
   required: true
@@ -332,7 +310,7 @@
       has_additional: true
     - text: 都没有，日常考勤很自由
       has_additional: true
-- num: 31
+- num: 29
   title: 每学期跑步打卡的要求是多少公里？（可选，没有请跳过）
   type: fill_blank
   required: false
@@ -340,7 +318,7 @@
   blank_count: 1
   regex:
     - "^.+$"
-- num: 32
+- num: 30
   title: 寒暑假一般放多久？有小学期吗？有的话是多长？
   type: fill_blank
   required: true
@@ -348,15 +326,15 @@
   blank_count: 1
   regex:
     - "^.+$"
-- num: 33
+- num: 31
   title: 自习资源和图书馆体验如何？
   type: fill_blank
   required: true
   prompt: 以及学校是否有24小时开放的通宵自习室？
   blank_count: 1
   regex:
-    - "^.{5,}$"
-- num: 34
+    - "^.{1,}$"
+- num: 32
   title: 自由补充
   type: text_area
   required: false
