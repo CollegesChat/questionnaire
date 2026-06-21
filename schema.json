@@ -116,7 +116,7 @@
                     "title": "Prompt"
                 },
                 "blank_count": {
-                    "default": 1,
+                    "default": 2,
                     "title": "Blank Count",
                     "type": "integer"
                 }
