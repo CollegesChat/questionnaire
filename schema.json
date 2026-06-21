@@ -76,6 +76,13 @@
         },
         "FillBlankQuestion": {
             "properties": {
+                "blank_count": {
+                    "default": 2,
+                    "description": "fill_blank 类型的多项填空题，空格数必须大于 1",
+                    "minimum": 2,
+                    "title": "Blank Count",
+                    "type": "integer"
+                },
                 "regex": {
                     "items": {
                         "type": "string"
@@ -114,11 +121,6 @@
                     ],
                     "default": null,
                     "title": "Prompt"
-                },
-                "blank_count": {
-                    "default": 2,
-                    "title": "Blank Count",
-                    "type": "integer"
                 }
             },
             "required": [
