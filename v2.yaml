@@ -1,21 +1,17 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/CollegesChat/questionnaire/refs/heads/main/schema.json
 - num: 1
   title: 如果您在主观题中留下了精彩见解，并希望在最终报告中获得署名，请留下您的常用网名/代号（留空则视为自愿以‘匿名受访者’身份参与开源共享）：[___________]
-  type: fill_blank
+  type: text_area
   required: false
   prompt: （1到4字）
-  blank_count: 1
-  regex:
-    - ^([\\u4e00-\\u9fa5]{1,4}|[a-zA-Z]{1,8})$
+  regex: ^([\\u4e00-\\u9fa5]{1,4}|[a-zA-Z]{1,8})$
 
 - num: 2
   title: 你的学校是全称是？
-  type: fill_blank
+  type: text_area
   required: true
   prompt: null
-  blank_count: 1
-  regex:
-    - ^.{4,12}$
+  regex: ^.{4,12}$
 
 - num: 3
   title: 你的入学年份及就读专业是什么？___年入学，专业为___
@@ -44,12 +40,10 @@
 
 - num: 5
   title: 你目前在哪一个校区就读？
-  type: fill_blank
+  type: text_area
   required: true
   prompt: null
-  blank_count: 1
-  regex:
-    - ^.+$
+  regex: ^.+$
 
 - num: 6
   title: 学校转专业容易吗？（可选）
@@ -68,34 +62,28 @@
 
 - num: 7
   title: 导师管理风格与组内学术氛围如何？
-  type: fill_blank
+  type: text_area
   required: false
   prompt: null
-  blank_count: 1
-  regex:
-    - ^.{5,}$
+  regex: ^.{5,}$
 
 - num: 8
   title: 实验室与工位硬件条件如何？
-  type: fill_blank
+  type: text_area
   required: false
   prompt: null
-  blank_count: 1
-  regex:
-    - ^.{5,}$
+  regex: ^.{5,}$
 
 - num: 9
   title: 研究生的补助与福利待遇大概在什么水平？
-  type: fill_blank
+  type: text_area
   required: false
   prompt: null
-  blank_count: 1
-  regex:
-    - ^.+$
+  regex: ^.+$
 
 - num: 10
   title: 是否存在“异地研究院/分院/校外基地”联培情况？生存现状如何？（没有请跳过）
-  type: fill_blank
+  type: text_area
   required: false
   prompt: |-
     提示：如果你被导师或学校安排到了本部以外的“外地研究院”、“校外科研基地”或“产业园联培”（比如本校在西安，但你被送到了深圳/苏州研究院），请聊聊那边的生存现状。
@@ -104,9 +92,7 @@
     1. 交通与生活：是不是周围荒无人烟，进城极难？外卖送不送？
     2. 补助待遇：异地有没有额外的差旅补贴或生活津贴？
     3. 神仙还是流放：是避开了本部领导查寝、过得更自由？还是像个被学校遗忘的编外打工人，办事盖章极其麻烦？
-  blank_count: 1
-  regex:
-    - ^.*$
+  regex: ^.*$
 
 - num: 11
   title: 宿舍的床位结构是怎样的？
@@ -153,12 +139,10 @@
 
 - num: 14
   title: 宿舍楼的洗衣机配置如何？
-  type: fill_blank
+  type: text_area
   required: true
   prompt: null
-  blank_count: 1
-  regex:
-    - ^.+$
+  regex: ^.+$
 
 - num: 15
   title: 每天会断电断网吗？
@@ -173,12 +157,10 @@
 
 - num: 16
   title: 宿舍的限电功率是多少？会没收违禁电器吗 / 查违章电器严不严？宿舍允许挂隐私床帘 / 遮光窗帘吗？（可选）
-  type: fill_blank
+  type: text_area
   required: false
   prompt: 不知道请跳过。
-  blank_count: 1
-  regex:
-    - ^.*[\\u4e00-\\u9fa5]+.*$
+  regex: ^.*[\\u4e00-\\u9fa5]+.*$
 
 - num: 17
   title: 大一刚入学允许带电脑吗？
@@ -210,21 +192,17 @@
 
 - num: 19
   title: 食堂的价格与卫生质量如何？
-  type: fill_blank
+  type: text_area
   required: true
   prompt: 食堂提供 清真 / 无麸 / 过敏 友好餐 吗？（不知道请忽略）
-  blank_count: 1
-  regex:
-    - ^.{1,}$
+  regex: ^.{1,}$
 
 - num: 20
   title: 校园网的收费和网络质量如何？带宽多大 ？
-  type: fill_blank
+  type: text_area
   required: true
   prompt: null
-  blank_count: 1
-  regex:
-    - ^.+$
+  regex: ^.+$
 
 - num: 21
   title: 校园内用什么卡消费？
@@ -245,12 +223,10 @@
 
 - num: 22
   title: 学校的快递收发政策怎么样？
-  type: fill_blank
+  type: text_area
   required: true
   prompt: 能发哪些快递？快递点离宿舍多远？快递点上下班时间？
-  blank_count: 1
-  regex:
-    - ^.+$
+  regex: ^.+$
 
 - num: 23
   title: 校园内超市的物价和服务怎么样？
@@ -340,30 +316,24 @@
 
 - num: 29
   title: 每学期跑步打卡的要求是多少公里？（可选，没有请跳过）
-  type: fill_blank
+  type: text_area
   required: false
   prompt: 以及是否能用自行车/滑板车“刷”跑步App数据？
-  blank_count: 1
-  regex:
-    - ^.+$
+  regex: ^.+$
 
 - num: 30
   title: 寒暑假一般放多久？有小学期吗？有的话是多长？
-  type: fill_blank
+  type: text_area
   required: true
   prompt: null
-  blank_count: 1
-  regex:
-    - ^.+$
+  regex: ^.+$
 
 - num: 31
   title: 自习资源和图书馆体验如何？
-  type: fill_blank
+  type: text_area
   required: true
   prompt: 以及学校是否有24小时开放的通宵自习室？
-  blank_count: 1
-  regex:
-    - ^.{1,}$
+  regex: ^.{1,}$
 
 - num: 32
   title: 自由补充
