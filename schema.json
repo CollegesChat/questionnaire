@@ -1,5 +1,28 @@
 {
     "$defs": {
+        "AdditionalInfo": {
+            "properties": {
+                "prompt": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Prompt"
+                },
+                "required": {
+                    "default": false,
+                    "title": "Required",
+                    "type": "boolean"
+                }
+            },
+            "title": "AdditionalInfo",
+            "type": "object"
+        },
         "AnyQuestion": {
             "discriminator": {
                 "mapping": {
@@ -83,13 +106,6 @@
                     "title": "Blank Count",
                     "type": "integer"
                 },
-                "regex": {
-                    "items": {
-                        "type": "string"
-                    },
-                    "title": "Regex",
-                    "type": "array"
-                },
                 "num": {
                     "title": "Num",
                     "type": "integer"
@@ -121,6 +137,21 @@
                     ],
                     "default": null,
                     "title": "Prompt"
+                },
+                "regex": {
+                    "anyOf": [
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "Regex"
                 }
             },
             "required": [
@@ -136,10 +167,17 @@
                     "title": "Text",
                     "type": "string"
                 },
-                "has_additional": {
+                "additional_text": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/AdditionalInfo"
+                        },
+                        {
+                            "type": "boolean"
+                        }
+                    ],
                     "default": false,
-                    "title": "Has Additional",
-                    "type": "boolean"
+                    "title": "Additional Text"
                 }
             },
             "required": [
@@ -231,17 +269,17 @@
                     "default": null,
                     "title": "Prompt"
                 },
-                "regex": {
+                "length_limit": {
                     "anyOf": [
                         {
-                            "type": "string"
+                            "type": "integer"
                         },
                         {
                             "type": "null"
                         }
                     ],
                     "default": null,
-                    "title": "Regex"
+                    "title": "Length Limit"
                 }
             },
             "required": [
