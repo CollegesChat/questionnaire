@@ -5,8 +5,8 @@ import { globSync } from 'glob';
 mkdirSync('dist', { recursive: true });
 
 const versions = {};
-for (const file of globSync('v*.yaml')) {
-  const key = file.replace('.yaml', '');
+for (const file of globSync('../v*.yaml')) {
+  const key = file.replace('../', '').replace('.yaml', '');
   versions[key] = yaml.load(readFileSync(file, 'utf-8'));
 }
 

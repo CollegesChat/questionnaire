@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "glob": "^13.0.6",
+    "js-yaml": "^5.2.0"
+  },
+  "license": "MIT"
+}

@@ -19,11 +19,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v6
-      - run: npm install --silent
-      - run: node build.mjs
+      - run: cd website && npm install --silent
+      - run: cd website && node build.mjs
       - uses: actions/upload-pages-artifact@v5
         with:
-          path: dist
+          path: website/dist
 
   deploy:
     needs: build
