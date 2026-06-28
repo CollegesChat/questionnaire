@@ -4,20 +4,15 @@
   type: text_area
   required: false
   prompt: （1到4字）
-  regex: ^([\\u4e00-\\u9fa5]{1,4}|[a-zA-Z]{1,8})$
+  length_limit: 4
 
 - num: 2
   title: 你的学校是全称是？
   type: text_area
-  required: true
-  prompt: null
-  regex: ^.{4,12}$
 
 - num: 3
   title: 你的入学年份及就读专业是什么？___年入学，专业为___
   type: fill_blank
-  required: true
-  prompt: null
   blank_count: 2
   regex:
     - ^(201[0-9]|202[0-9])-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$
@@ -25,65 +20,68 @@
 
 - num: 4
   title: 你的培养层次是？
-  type: radio
-  required: true
-  prompt: null
+  type: checkbox
   options:
     - text: 大专
-      has_additional: true
+      additional_text:
+        prompt: 大几？
     - text: 本科
-      has_additional: true
+      additional_text:
+        prompt: 大几？
     - text: 硕士研究生
-      has_additional: false
     - text: 博士研究生
-      has_additional: false
 
 - num: 5
   title: 你目前在哪一个校区就读？
-  type: text_area
-  required: true
-  prompt: null
-  regex: ^.+$
 
 - num: 6
   title: 学校转专业容易吗？（可选）
-  type: radio
-  required: false
-  prompt: null
   options:
     - text: 很容易（门槛低/通过率高）
-      has_additional: false
     - text: 一般（有绩点或人数限制）
-      has_additional: false
     - text: 很难（考核严格/名额极少）
-      has_additional: false
     - text: 政策不允许转专业
-      has_additional: false
 
 - num: 7
   title: 导师管理风格与组内学术氛围如何？
-  type: text_area
+  type: checkbox
   required: false
-  prompt: null
-  regex: ^.{5,}$
+  options:
+    - text: 导师管理宽松，自由度高
+      additional_text: true
+    - text: 导师管理严格，要求较多
+      additional_text: true
+    - text: 组内学术氛围浓厚，交流频繁
+      additional_text: true
+    - text: 组内偏工程/项目导向
+      additional_text: true
+    - text: 组内内卷严重或压力较大
+      additional_text: true
+    - text: 其他 / 不是上面说的 / 你还想说的
+      additional_text:
+        required: true
 
 - num: 8
   title: 实验室与工位硬件条件如何？
-  type: text_area
+  type: checkbox
   required: false
-  prompt: null
-  regex: ^.{5,}$
-
+  options:
+    - text: 实验室宽敞舒适，环境不错
+    - text: 人均固定工位，不用抢位置
+    - text: 配有电脑/工作站
+    - text: 有服务器、GPU 集群等算力资源
+    - text: 有专业实验设备，资源充足
+    - text: 条件较差（抢工位、设备老旧、资源紧张等）
+    - text: 其他 / 不是上面说的 / 你还想说的
+      additional_text:
+        required: true
 - num: 9
   title: 研究生的补助与福利待遇大概在什么水平？
-  type: text_area
   required: false
-  prompt: null
-  regex: ^.+$
 
 - num: 10
   title: 是否存在“异地研究院/分院/校外基地”联培情况？生存现状如何？（没有请跳过）
-  type: text_area
+  type: checkbox
   required: false
   prompt: |-
     提示：如果你被导师或学校安排到了本部以外的“外地研究院”、“校外科研基地”或“产业园联培”（比如本校在西安，但你被送到了深圳/苏州研究院），请聊聊那边的生存现状。
@@ -92,251 +90,204 @@
     1. 交通与生活：是不是周围荒无人烟，进城极难？外卖送不送？
     2. 补助待遇：异地有没有额外的差旅补贴或生活津贴？
     3. 神仙还是流放：是避开了本部领导查寝、过得更自由？还是像个被学校遗忘的编外打工人，办事盖章极其麻烦？
-  regex: ^.*$
+  options:
+    - text: 没有异地联培/研究院安排
+    - text: 有异地联培，但生活条件较好
+    - text: 有异地联培，交通或生活不便
+    - text: 有额外补贴或报销政策
+    - text: 办事、报销、管理较麻烦
+    - text: 其他 / 不是上面说的 / 你还想说的
+      additional_text:
+        required: true
 
 - num: 11
   title: 宿舍的床位结构是怎样的？
   type: checkbox
-  required: true
   prompt: 请选择上面的两项中的其中一项、下面四项其中的一项。如果有混合的情况，请勾选多个。
   options:
     - text: 上床下桌
-      has_additional: true
+      additional_text:
+        prompt: 不全是上床下桌请填空
     - text: 上下铺
-      has_additional: true
+      additional_text:
+        prompt: 不全是上下铺请填空
     - text: 四人间
-      has_additional: true
+      additional_text: true
     - text: 六人间
-      has_additional: true
+      additional_text: true
     - text: 八人间
-      has_additional: true
+      additional_text: true
     - text: 八人间或者更多 / 其他
-      has_additional: true
+      additional_text:
+        required: true
 
 - num: 12
   title: 教室和宿舍有空调吗？
   type: checkbox
-  required: true
-  prompt: null
   options:
     - text: 教室有
-      has_additional: true
+      additional_text: true
     - text: 宿舍有
-      has_additional: true
+      additional_text: true
 
 - num: 13
   title: 宿舍有独立卫浴吗？
   type: checkbox
-  required: true
   prompt: 可补充：热水供应时间？
   options:
     - text: 有独卫
-      has_additional: true
+      additional_text:
+        prompt: 补充说明（以及如果没有独浴的话，澡堂离宿舍多远？）
     - text: 有独浴
-      has_additional: true
+      additional_text:
+        prompt: 补充说明（以及如果没有独浴的话，澡堂离宿舍多远？）
     - text: 完全没有
-      has_additional: true
+      additional_text:
+        required: true
 
 - num: 14
-  title: 宿舍楼的洗衣机配置如何？
-  type: text_area
-  required: true
-  prompt: null
-  regex: ^.+$
-
-- num: 15
   title: 每天会断电断网吗？
   type: checkbox
   required: false
   prompt: 如果不断电也不断网可直接跳过
   options:
     - text: 断电
-      has_additional: true
+      additional_text:
+        prompt: 几点开始断？
+        required: true
     - text: 断网
-      has_additional: true
+      additional_text:
+        prompt: 几点开始断？
+        required: true
 
-- num: 16
+- num: 15
   title: 宿舍的限电功率是多少？会没收违禁电器吗 / 查违章电器严不严？宿舍允许挂隐私床帘 / 遮光窗帘吗？（可选）
-  type: text_area
   required: false
   prompt: 不知道请跳过。
-  regex: ^.*[\\u4e00-\\u9fa5]+.*$
 
-- num: 17
+- num: 16
   title: 大一刚入学允许带电脑吗？
-  type: radio
-  required: true
-  prompt: null
   options:
     - text: 允许带电脑
-      has_additional: false
     - text: 明确禁止带电脑
-      has_additional: false
     - text: 表面不允许但带了也没人管
-      has_additional: false
 
-- num: 18
+- num: 17
   title: 晚上宿舍会查寝或封寝吗？
   type: radio
-  required: true
-  prompt: null
   options:
     - text: 既严格查寝又按时封寝
-      has_additional: true
+      additional_text:
+        prompt: 晚归能不能回宿舍？抓到怎么处理？
     - text: 只封寝不查寝
-      has_additional: true
+      additional_text:
+        prompt: 晚归能不能回宿舍？抓到怎么处理？
     - text: 偶尔查寝但不封寝
-      has_additional: false
     - text: 不管（无封寝无查寝）
-      has_additional: false
+
+- num: 18
+  title: 食堂的价格与卫生质量如何？
+  prompt: 食堂提供 清真 / 无麸 / 过敏 友好餐 吗？（不知道请忽略）
 
 - num: 19
-  title: 食堂的价格与卫生质量如何？
-  type: text_area
-  required: true
-  prompt: 食堂提供 清真 / 无麸 / 过敏 友好餐 吗？（不知道请忽略）
-  regex: ^.{1,}$
+  title: 校园网的收费和网络质量如何？带宽多大 ？
+  prompt: 可说明资费、带宽、稳定性、IPv6支持情况、是否允许自办运营商宽带、安装路由器等。
 
 - num: 20
-  title: 校园网的收费和网络质量如何？带宽多大 ？
-  type: text_area
-  required: true
-  prompt: null
-  regex: ^.+$
-
-- num: 21
   title: 校园内用什么卡消费？
   type: checkbox
-  required: true
   prompt: null
   options:
     - text: 实体校园卡
-      has_additional: false
     - text: 手机虚拟校园码
-      has_additional: false
     - text: 微信或支付宝直刷
-      has_additional: false
     - text: 银行联名卡
-      has_additional: false
     - text: 其他
-      has_additional: true
+      additional_text: true
+
+- num: 21
+  title: 学校的快递收发政策怎么样？
+  prompt: 能发哪些快递？快递点离宿舍多远？快递点上下班时间？
 
 - num: 22
-  title: 学校的快递收发政策怎么样？
-  type: text_area
-  required: true
-  prompt: 能发哪些快递？快递点离宿舍多远？快递点上下班时间？
-  regex: ^.+$
-
-- num: 23
   title: 校园内超市的物价和服务怎么样？
   type: checkbox
-  required: true
-  prompt: null
   options:
     - text: 物价偏高（比校外贵不少）
-      has_additional: false
     - text: 物价正常（与校外基本持平）
-      has_additional: false
     - text: 物价偏低（与校外便宜）
-      has_additional: false
     - text: 种类多
-      has_additional: false
     - text: 种类正常（与校外基本持平）
-      has_additional: false
     - text: 种类少
-      has_additional: false
 
-- num: 24
+- num: 23
   title: 学校允许点外卖吗？
-  type: radio
-  required: true
-  prompt: null
   options:
     - text: 允许，外卖员可以送至宿舍楼下
-      has_additional: false
     - text: 可以点，但只能去校门口/外卖柜/指定地点拿
-      has_additional: true
+      additional_text:
+        prompt: 取外卖的地方离宿舍楼多远？
     - text: 严禁点外卖，抓到会通报或没收
-      has_additional: false
 
-- num: 25
+- num: 24
   title: 校园内可以骑私家电瓶车吗？
-  type: radio
-  required: true
-  prompt: null
   options:
     - text: 可以自由骑行和充电
-      has_additional: true
+      additional_text:
+        prompt: 电池在哪能充电？
     - text: 可以骑，但限制很多或需要办牌照
-      has_additional: true
+      additional_text:
+        prompt: 电池在哪能充电？
     - text: 严禁学生骑行和停放私家电瓶车
-      has_additional: false
 
-- num: 26
+- num: 25
   title: 校内共享单车的数量与种类如何？
-  type: radio
-  required: true
-  prompt: null
   options:
     - text: 车很多且种类丰富，很好骑
-      has_additional: false
     - text: 数量较少，早高峰基本靠抢
-      has_additional: false
     - text: 校内完全没有共享单车
-      has_additional: false
 
-- num: 27
+- num: 26
   title: 学校周边的交通便利度如何？
   type: radio
-  required: true
   prompt: 包括是否偏僻，和主城区是否远等。
   options:
     - text: 极好，校门口或步行距离内有地铁站
-      has_additional: false
     - text: 一般，需要坐公交车转乘地铁
-      has_additional: true
+      additional_text:
+        prompt: 转乘耗时？
     - text: 偏僻，进城单程需要一小时以上
-      has_additional: true
-
-- num: 28
+      additional_text:
+        prompt: 进城单程具体多久？主要靠什么交通工具？
+- num: 27
   title: 日常考勤管理严格吗？
   type: checkbox
-  required: true
-  prompt: null
   options:
     - text: 有强制早自习
-      has_additional: true
+      additional_text:
+        prompt: 多长时间？哪些年级有
     - text: 有强制晚自习
-      has_additional: true
+      additional_text:
+        prompt: 多长时间？哪些年级有
     - text: 有晨跑/早起签到/早操/升旗要求
-      has_additional: true
+      additional_text:
+        prompt: 顺便聊聊你们学校日常上课点名严不严？专业课和公共课怎么查考勤？
     - text: 都没有，日常考勤很自由
-      has_additional: true
+      additional_text:
+        prompt: 顺便聊聊你们学校日常上课点名严不严？专业课和公共课怎么查考勤？
+
+- num: 28
+  title: 每学期跑步打卡的要求是多少公里？（可选，没有请跳过）
+  prompt: 以及是否能用自行车/滑板车“刷”跑步App数据？
 
 - num: 29
-  title: 每学期跑步打卡的要求是多少公里？（可选，没有请跳过）
-  type: text_area
-  required: false
-  prompt: 以及是否能用自行车/滑板车“刷”跑步App数据？
-  regex: ^.+$
+  title: 寒暑假一般放多久？有小学期吗？有的话是多长？
 
 - num: 30
-  title: 寒暑假一般放多久？有小学期吗？有的话是多长？
-  type: text_area
-  required: true
-  prompt: null
-  regex: ^.+$
+  title: 自习资源和图书馆体验如何？
+  prompt: 以及学校是否有24小时开放的通宵自习室？
 
 - num: 31
-  title: 自习资源和图书馆体验如何？
-  type: text_area
-  required: true
-  prompt: 以及学校是否有24小时开放的通宵自习室？
-  regex: ^.{1,}$
-
-- num: 32
   title: 自由补充
-  type: text_area
   required: false
   prompt: 例如是否有无障碍基础设施 / 校医院服务质量如何等等杂项问题。
