@@ -5,168 +5,245 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>问卷展示</title>
   <link rel="stylesheet" href="style.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body>
-<div class="container" x-data="questionnaire()" x-init="init()">
+<div class="container">
   <h1>问卷展示</h1>
 
-  <div class="version-switch">
-    <template x-for="ver in versions" :key="ver">
-      <button :class="{ active: currentVersion === ver }" @click="loadVersion(ver)" x-text="ver"></button>
-    </template>
-  </div>
+  <div class="version-switch" id="version-switch"></div>
 
-  <div x-show="loading" class="loading">加载中...</div>
+  <div id="loading" class="loading" style="display: none;">加载中...</div>
 
-  <template x-for="q in questions" :key="q.num">
-    <div class="question">
-      <div class="question-header">
-        <span class="question-num" x-text="'Q' + q.num + '.'"></span>
-        <span class="question-title" x-text="q.title"></span>
-        <span x-show="q.required !== false" class="required-mark">*</span>
-      </div>
-
-      <div x-show="q.prompt" class="question-prompt" x-text="q.prompt"></div>
-
-      <!-- Radio -->
-      <template x-if="resolveType(q) === 'radio'">
-        <div class="options">
-          <template x-for="(opt, idx) in q.options" :key="idx">
-            <div>
-              <label class="option-label">
-                <input type="radio" :name="'q' + q.num" :value="idx"
-                       x-model="answers[q.num]">
-                <span x-text="opt.text"></span>
-              </label>
-              <template x-if="hasAdditional(opt) && answers[q.num] == idx">
-                <div style="display: flex; align-items: center; gap: 0.25rem; margin-left: 1.5rem;">
-                  <input type="text" class="additional-input" style="margin: 0; flex: 1;"
-                         :placeholder="additionalPrompt(opt)"
-                         :required="isRequired(opt)"
-                         x-model="additionalAnswers[q.num + '_' + idx]">
-                  <span x-show="isRequired(opt)" class="required-mark">*</span>
-                </div>
-              </template>
-            </div>
-          </template>
-        </div>
-      </template>
-
-      <!-- Checkbox -->
-      <template x-if="resolveType(q) === 'checkbox'">
-        <div class="options">
-          <template x-for="(opt, idx) in q.options" :key="idx">
-            <div>
-              <label class="option-label">
-                <input type="checkbox" :value="idx"
-                       x-model="answers[q.num]">
-                <span x-text="opt.text"></span>
-              </label>
-              <template x-if="hasAdditional(opt) && (answers[q.num] || []).some(v => v == idx)">
-                <div style="display: flex; align-items: center; gap: 0.25rem; margin-left: 1.5rem;">
-                  <input type="text" class="additional-input" style="margin: 0; flex: 1;"
-                         :placeholder="additionalPrompt(opt)"
-                         :required="isRequired(opt)"
-                         x-model="additionalAnswers[q.num + '_' + idx]">
-                  <span x-show="isRequired(opt)" class="required-mark">*</span>
-                </div>
-              </template>
-            </div>
-          </template>
-        </div>
-      </template>
-
-      <!-- Fill Blank -->
-      <template x-if="resolveType(q) === 'fill_blank'">
-        <div class="blank-inputs">
-          <template x-for="i in (q.blank_count || 2)" :key="i">
-            <input type="text" class="blank-input"
-                   :placeholder="'空 ' + i"
-                   x-model="answers[q.num + '_' + (i - 1)]">
-          </template>
-        </div>
-      </template>
-
-      <!-- Text Area -->
-      <template x-if="resolveType(q) === 'text_area'">
-        <div>
-          <textarea class="text-input" rows="3"
-                    x-model="answers[q.num]"
-                    :maxlength="q.length_limit || null"
-                    :placeholder="q.length_limit ? '最多 ' + q.length_limit + ' 字' : ''"></textarea>
-          <div x-show="q.length_limit" class="length-hint"
-               x-text="(answers[q.num] || '').length + ' / ' + q.length_limit"></div>
-        </div>
-      </template>
-    </div>
-  </template>
+  <div id="questions"></div>
 </div>
 
 <script>
-function questionnaire() {
-  return {
-    versions: [],
-    currentVersion: '',
-    questions: [],
-    answers: {},
-    additionalAnswers: {},
-    loading: false,
+const state = {
+  versions: [],
+  currentVersion: '',
+  questions: [],
+  answers: {},
+  additionalAnswers: {}
+};
 
-    async init() {
-      try {
-        const res = await fetch('versions.json');
-        if (res.ok) {
-          const data = await res.json();
-          this.versions = data.versions.sort();
-        }
-      } catch(e) {}
-      if (!this.versions.length) this.versions = ['v1', 'v2'];
-      if (this.versions.includes('v2')) await this.loadVersion('v2');
-      else await this.loadVersion(this.versions[0]);
-    },
-
-    async loadVersion(ver) {
-      this.loading = true;
-      try {
-        const res = await fetch(ver + '.json');
-        const data = await res.json();
-        this.questions = data;
-        this.currentVersion = ver;
-        this.answers = {};
-        this.additionalAnswers = {};
-        for (const q of this.questions) {
-          const type = this.resolveType(q);
-          if (type === 'checkbox') this.answers[q.num] = [];
-        }
-      } catch(e) {
-        console.error('Failed to load', ver, e);
-      }
-      this.loading = false;
-    },
-
-    resolveType(q) {
-      if (q.type) return q.type;
-      if (q.options) return 'radio';
-      return 'text_area';
-    },
-
-    hasAdditional(opt) {
-      return opt.additional_text === true || (typeof opt.additional_text === 'object' && opt.additional_text !== null);
-    },
-
-    additionalPrompt(opt) {
-      if (typeof opt.additional_text === 'object' && opt.additional_text !== null && opt.additional_text.prompt) {
-        return opt.additional_text.prompt;
-      }
-      return '补充说明...';
-    },
-
-    isRequired(opt) {
-      return typeof opt.additional_text === 'object' && opt.additional_text !== null && opt.additional_text.required === true;
+async function init() {
+  try {
+    const res = await fetch('versions.json');
+    if (res.ok) {
+      const data = await res.json();
+      state.versions = data.versions.sort();
     }
-  };
+  } catch (e) {}
+  if (!state.versions.length) state.versions = ['v1', 'v2'];
+
+  renderVersionSwitch();
+
+  if (state.versions.includes('v2')) await loadVersion('v2');
+  else await loadVersion(state.versions[0]);
 }
+
+function renderVersionSwitch() {
+  const container = document.getElementById('version-switch');
+  container.innerHTML = state.versions.map(ver =>
+    `<button class="${ver === state.currentVersion ? 'active' : ''}" data-version="${ver}">${ver}</button>`
+  ).join('');
+
+  container.addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON') {
+      loadVersion(e.target.dataset.version);
+    }
+  });
+}
+
+async function loadVersion(ver) {
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('questions').innerHTML = '';
+
+  try {
+    const res = await fetch(ver + '.json');
+    const data = await res.json();
+    state.questions = data;
+    state.currentVersion = ver;
+    state.answers = {};
+    state.additionalAnswers = {};
+
+    for (const q of state.questions) {
+      const type = resolveType(q);
+      if (type === 'checkbox') state.answers[q.num] = [];
+    }
+
+    renderQuestions();
+    updateVersionButtons();
+  } catch (e) {
+    console.error('Failed to load', ver, e);
+  }
+
+  document.getElementById('loading').style.display = 'none';
+}
+
+function updateVersionButtons() {
+  document.querySelectorAll('#version-switch button').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.version === state.currentVersion);
+  });
+}
+
+function resolveType(q) {
+  if (q.type) return q.type;
+  if (q.options) return 'radio';
+  return 'text_area';
+}
+
+function hasAdditional(opt) {
+  return opt.additional_text === true || (typeof opt.additional_text === 'object' && opt.additional_text !== null);
+}
+
+function additionalPrompt(opt) {
+  if (typeof opt.additional_text === 'object' && opt.additional_text !== null && opt.additional_text.prompt) {
+    return opt.additional_text.prompt;
+  }
+  return '补充说明...';
+}
+
+function isRequired(opt) {
+  return typeof opt.additional_text === 'object' && opt.additional_text !== null && opt.additional_text.required === true;
+}
+
+function renderQuestions() {
+  const container = document.getElementById('questions');
+  container.innerHTML = state.questions.map(q => renderQuestion(q)).join('');
+
+  container.addEventListener('change', handleChange);
+  container.addEventListener('input', handleInput);
+}
+
+function renderQuestion(q) {
+  const type = resolveType(q);
+  const required = q.required !== false;
+  let content = '';
+
+  if (type === 'radio') {
+    content = `<div class="options">${q.options.map((opt, idx) => renderRadioOption(q, opt, idx)).join('')}</div>`;
+  } else if (type === 'checkbox') {
+    content = `<div class="options">${q.options.map((opt, idx) => renderCheckboxOption(q, opt, idx)).join('')}</div>`;
+  } else if (type === 'fill_blank') {
+    const blankCount = q.blank_count || 2;
+    const blanks = Array.from({ length: blankCount }, (_, i) =>
+      `<input type="text" class="blank-input" placeholder="空 ${i + 1}" data-q="${q.num}" data-blank="${i}">`
+    ).join('');
+    content = `<div class="blank-inputs">${blanks}</div>`;
+  } else if (type === 'text_area') {
+    const maxlength = q.length_limit ? `maxlength="${q.length_limit}"` : '';
+    const placeholder = q.length_limit ? `placeholder="最多 ${q.length_limit} 字"` : '';
+    content = `
+      <textarea class="text-input" rows="3" ${maxlength} ${placeholder} data-q="${q.num}"></textarea>
+      ${q.length_limit ? `<div class="length-hint" id="length-${q.num}">0 / ${q.length_limit}</div>` : ''}
+    `;
+  }
+
+  return `
+    <div class="question">
+      <div class="question-header">
+        <span class="question-num">Q${q.num}.</span>
+        <span class="question-title">${q.title}</span>
+        ${required ? '<span class="required-mark">*</span>' : ''}
+      </div>
+      ${q.prompt ? `<div class="question-prompt">${q.prompt}</div>` : ''}
+      ${content}
+    </div>
+  `;
+}
+
+function renderRadioOption(q, opt, idx) {
+  const additional = hasAdditional(opt) ? `
+    <div class="additional-container" data-q="${q.num}" data-idx="${idx}" style="display: none;">
+      <input type="text" class="additional-input" placeholder="${additionalPrompt(opt)}"
+             ${isRequired(opt) ? 'required' : ''} data-q="${q.num}" data-idx="${idx}">
+      ${isRequired(opt) ? '<span class="required-mark">*</span>' : ''}
+    </div>
+  ` : '';
+
+  return `
+    <div>
+      <label class="option-label">
+        <input type="radio" name="q${q.num}" value="${idx}" data-q="${q.num}">
+        <span>${opt.text}</span>
+      </label>
+      ${additional}
+    </div>
+  `;
+}
+
+function renderCheckboxOption(q, opt, idx) {
+  const additional = hasAdditional(opt) ? `
+    <div class="additional-container" data-q="${q.num}" data-idx="${idx}" style="display: none;">
+      <input type="text" class="additional-input" placeholder="${additionalPrompt(opt)}"
+             ${isRequired(opt) ? 'required' : ''} data-q="${q.num}" data-idx="${idx}">
+      ${isRequired(opt) ? '<span class="required-mark">*</span>' : ''}
+    </div>
+  ` : '';
+
+  return `
+    <div>
+      <label class="option-label">
+        <input type="checkbox" value="${idx}" data-q="${q.num}">
+        <span>${opt.text}</span>
+      </label>
+      ${additional}
+    </div>
+  `;
+}
+
+function handleChange(e) {
+  const target = e.target;
+  const qNum = target.dataset.q;
+
+  if (target.type === 'radio') {
+    const idx = target.value;
+    hideAdditionalContainers(qNum);
+    showAdditionalContainer(qNum, idx);
+  } else if (target.type === 'checkbox') {
+    const idx = target.value;
+    if (target.checked) {
+      showAdditionalContainer(qNum, idx);
+    } else {
+      hideAdditionalContainer(qNum, idx);
+    }
+  }
+}
+
+function handleInput(e) {
+  const target = e.target;
+
+  if (target.classList.contains('text-input')) {
+    const qNum = target.dataset.q;
+    const hint = document.getElementById(`length-${qNum}`);
+    if (hint) {
+      hint.textContent = `${target.value.length} / ${target.maxLength}`;
+    }
+  }
+}
+
+function hideAdditionalContainers(qNum) {
+  document.querySelectorAll(`.additional-container[data-q="${qNum}"]`).forEach(el => {
+    el.style.display = 'none';
+  });
+}
+
+function showAdditionalContainer(qNum, idx) {
+  const container = document.querySelector(`.additional-container[data-q="${qNum}"][data-idx="${idx}"]`);
+  if (container) {
+    container.style.display = 'flex';
+  }
+}
+
+function hideAdditionalContainer(qNum, idx) {
+  const container = document.querySelector(`.additional-container[data-q="${qNum}"][data-idx="${idx}"]`);
+  if (container) {
+    container.style.display = 'none';
+  }
+}
+
+init();
 </script>
 </body>
 </html>
