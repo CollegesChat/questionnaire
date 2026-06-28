@@ -20,7 +20,6 @@
 
 - num: 4
   title: 你的培养层次是？
-  type: checkbox
   options:
     - text: 大专
       additional_text:
