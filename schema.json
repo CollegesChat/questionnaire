@@ -1,6 +1,7 @@
 {
     "$defs": {
         "AdditionalInfo": {
+            "additionalProperties": false,
             "properties": {
                 "prompt": {
                     "anyOf": [
@@ -24,16 +25,7 @@
             "type": "object"
         },
         "AnyQuestion": {
-            "discriminator": {
-                "mapping": {
-                    "checkbox": "#/$defs/CheckboxQuestion",
-                    "fill_blank": "#/$defs/FillBlankQuestion",
-                    "radio": "#/$defs/RadioQuestion",
-                    "text_area": "#/$defs/TextAreaQuestion"
-                },
-                "propertyName": "type"
-            },
-            "oneOf": [
+            "anyOf": [
                 {
                     "$ref": "#/$defs/RadioQuestion"
                 },
@@ -46,9 +38,13 @@
                 {
                     "$ref": "#/$defs/TextAreaQuestion"
                 }
-            ]
+            ],
+            "discriminator": {
+                "propertyName": "type"
+            }
         },
         "CheckboxQuestion": {
+            "additionalProperties": false,
             "properties": {
                 "num": {
                     "title": "Num",
@@ -98,14 +94,8 @@
             "type": "object"
         },
         "FillBlankQuestion": {
+            "additionalProperties": false,
             "properties": {
-                "blank_count": {
-                    "default": 2,
-                    "description": "fill_blank 类型的多项填空题，空格数必须大于 1",
-                    "minimum": 2,
-                    "title": "Blank Count",
-                    "type": "integer"
-                },
                 "num": {
                     "title": "Num",
                     "type": "integer"
@@ -138,6 +128,13 @@
                     "default": null,
                     "title": "Prompt"
                 },
+                "blank_count": {
+                    "default": 2,
+                    "description": "fill_blank 类型的多项填空题，空格数必须大于 1",
+                    "minimum": 2,
+                    "title": "Blank Count",
+                    "type": "integer"
+                },
                 "regex": {
                     "anyOf": [
                         {
@@ -161,6 +158,7 @@
             "type": "object"
         },
         "Option": {
+            "additionalProperties": false,
             "description": "选项的定义",
             "properties": {
                 "text": {
@@ -187,6 +185,7 @@
             "type": "object"
         },
         "RadioQuestion": {
+            "additionalProperties": false,
             "properties": {
                 "num": {
                     "title": "Num",
@@ -236,6 +235,7 @@
             "type": "object"
         },
         "TextAreaQuestion": {
+            "additionalProperties": false,
             "properties": {
                 "num": {
                     "title": "Num",

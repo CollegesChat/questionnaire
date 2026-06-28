@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>问卷展示</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
+<div class="container" x-data="questionnaire()" x-init="init()">
+  <h1>问卷展示</h1>
+
+  <div class="version-switch">
+    <template x-for="ver in versions" :key="ver">
+      <button :class="{ active: currentVersion === ver }" @click="loadVersion(ver)" x-text="ver"></button>
+    </template>
+  </div>
+
+  <div x-show="loading" class="loading">加载中...</div>
+
+  <template x-for="q in questions" :key="q.num">
+    <div class="question">
+      <div class="question-header">
+        <span class="question-num" x-text="'Q' + q.num + '.'"></span>
+        <span class="question-title" x-text="q.title"></span>
+        <span x-show="q.required !== false" class="required-mark">*</span>
+      </div>
+
+      <div x-show="q.prompt" class="question-prompt" x-text="q.prompt"></div>
+
+      <!-- Radio -->
+      <template x-if="resolveType(q) === 'radio'">
+        <div class="options">
+          <template x-for="(opt, idx) in q.options" :key="idx">
+            <div>
+              <label class="option-label">
+                <input type="radio" :name="'q' + q.num" :value="idx"
+                       x-model="answers[q.num]">
+                <span x-text="opt.text"></span>
+              </label>
+              <template x-if="hasAdditional(opt) && answers[q.num] == idx">
+                <div style="display: flex; align-items: center; gap: 0.25rem; margin-left: 1.5rem;">
+                  <input type="text" class="additional-input" style="margin: 0; flex: 1;"
+                         :placeholder="additionalPrompt(opt)"
+                         :required="isRequired(opt)"
+                         x-model="additionalAnswers[q.num + '_' + idx]">
+                  <span x-show="isRequired(opt)" class="required-mark">*</span>
+                </div>
+              </template>
+            </div>
+          </template>
+        </div>
+      </template>
+
+      <!-- Checkbox -->
+      <template x-if="resolveType(q) === 'checkbox'">
+        <div class="options">
+          <template x-for="(opt, idx) in q.options" :key="idx">
+            <div>
+              <label class="option-label">
+                <input type="checkbox" :value="idx"
+                       x-model="answers[q.num]">
+                <span x-text="opt.text"></span>
+              </label>
+              <template x-if="hasAdditional(opt) && (answers[q.num] || []).some(v => v == idx)">
+                <div style="display: flex; align-items: center; gap: 0.25rem; margin-left: 1.5rem;">
+                  <input type="text" class="additional-input" style="margin: 0; flex: 1;"
+                         :placeholder="additionalPrompt(opt)"
+                         :required="isRequired(opt)"
+                         x-model="additionalAnswers[q.num + '_' + idx]">
+                  <span x-show="isRequired(opt)" class="required-mark">*</span>
+                </div>
+              </template>
+            </div>
+          </template>
+        </div>
+      </template>
+
+      <!-- Fill Blank -->
+      <template x-if="resolveType(q) === 'fill_blank'">
+        <div class="blank-inputs">
+          <template x-for="i in (q.blank_count || 2)" :key="i">
+            <input type="text" class="blank-input"
+                   :placeholder="'空 ' + i"
+                   x-model="answers[q.num + '_' + (i - 1)]">
+          </template>
+        </div>
+      </template>
+
+      <!-- Text Area -->
+      <template x-if="resolveType(q) === 'text_area'">
+        <div>
+          <textarea class="text-input" rows="3"
+                    x-model="answers[q.num]"
+                    :maxlength="q.length_limit || null"
+                    :placeholder="q.length_limit ? '最多 ' + q.length_limit + ' 字' : ''"></textarea>
+          <div x-show="q.length_limit" class="length-hint"
+               x-text="(answers[q.num] || '').length + ' / ' + q.length_limit"></div>
+        </div>
+      </template>
+    </div>
+  </template>
+</div>
+
+<script>
+function questionnaire() {
+  return {
+    versions: [],
+    currentVersion: '',
+    questions: [],
+    answers: {},
+    additionalAnswers: {},
+    loading: false,
+
+    async init() {
+      try {
+        const res = await fetch('versions.json');
+        if (res.ok) {
+          const data = await res.json();
+          this.versions = data.versions.sort();
+        }
+      } catch(e) {}
+      if (!this.versions.length) this.versions = ['v1', 'v2'];
+      if (this.versions.includes('v2')) await this.loadVersion('v2');
+      else await this.loadVersion(this.versions[0]);
+    },
+
+    async loadVersion(ver) {
+      this.loading = true;
+      try {
+        const res = await fetch(ver + '.json');
+        const data = await res.json();
+        this.questions = data;
+        this.currentVersion = ver;
+        this.answers = {};
+        this.additionalAnswers = {};
+        for (const q of this.questions) {
+          const type = this.resolveType(q);
+          if (type === 'checkbox') this.answers[q.num] = [];
+        }
+      } catch(e) {
+        console.error('Failed to load', ver, e);
+      }
+      this.loading = false;
+    },
+
+    resolveType(q) {
+      if (q.type) return q.type;
+      if (q.options) return 'radio';
+      return 'text_area';
+    },
+
+    hasAdditional(opt) {
+      return opt.additional_text === true || (typeof opt.additional_text === 'object' && opt.additional_text !== null);
+    },
+
+    additionalPrompt(opt) {
+      if (typeof opt.additional_text === 'object' && opt.additional_text !== null && opt.additional_text.prompt) {
+        return opt.additional_text.prompt;
+      }
+      return '补充说明...';
+    },
+
+    isRequired(opt) {
+      return typeof opt.additional_text === 'object' && opt.additional_text !== null && opt.additional_text.required === true;
+    }
+  };
+}
+</script>
+</body>
+</html>
