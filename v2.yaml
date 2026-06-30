@@ -116,7 +116,7 @@
       additional_text: true
     - text: 八人间
       additional_text: true
-    - text: 八人间或者更多 / 其他
+    - text: 八人间或者其他（如单人床、独立单间等）
       additional_text:
         required: true
 
@@ -125,9 +125,11 @@
   type: checkbox
   options:
     - text: 教室有
-      additional_text: true
+      additional_text:
+        prompt: 补充说明
     - text: 宿舍有
-      additional_text: true
+      additional_text:
+        prompt: 补充说明
 
 - num: 13
   title: 宿舍有独立卫浴吗？
@@ -143,6 +145,7 @@
     - text: 完全没有
       additional_text:
         required: true
+        prompt: 澡堂离宿舍多远？
 
 - num: 14
   title: 每天会断电断网吗？
@@ -249,7 +252,7 @@
 - num: 26
   title: 学校周边的交通便利度如何？
   type: radio
-  prompt: 包括是否偏僻，和主城区是否远等。
+  prompt: 请在选项的填空中包括是否偏僻，和主城区是否远等信息。
   options:
     - text: 极好，校门口或步行距离内有地铁站
     - text: 一般，需要坐公交车转乘地铁
@@ -289,4 +292,4 @@
 - num: 31
   title: 自由补充
   required: false
-  prompt: 例如是否有无障碍基础设施 / 校医院服务质量如何等等杂项问题。
+  prompt: 例如是否有无障碍基础设施／校医院服务质量如何 ／是否允许校外租房/走读／考试成绩规则（如：单及格制/双及格制/挂科重修机制）等等杂项问题，以及个人感受和要告诉大家的话。
