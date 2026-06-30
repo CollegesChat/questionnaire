@@ -13,11 +13,11 @@
                         }
                     ],
                     "default": null,
-                    "title": "Prompt"
+                    "title": "提示文本"
                 },
                 "required": {
                     "default": false,
-                    "title": "Required",
+                    "title": "是否必填",
                     "type": "boolean"
                 }
             },
@@ -47,12 +47,12 @@
             "additionalProperties": false,
             "properties": {
                 "num": {
-                    "title": "Num",
+                    "title": "题号",
                     "type": "integer"
                 },
                 "title": {
                     "default": "",
-                    "title": "Title",
+                    "title": "题干",
                     "type": "string"
                 },
                 "type": {
@@ -63,7 +63,7 @@
                 },
                 "required": {
                     "default": true,
-                    "title": "Required",
+                    "title": "是否必填",
                     "type": "boolean"
                 },
                 "prompt": {
@@ -76,13 +76,13 @@
                         }
                     ],
                     "default": null,
-                    "title": "Prompt"
+                    "title": "填报提示"
                 },
                 "options": {
                     "items": {
                         "$ref": "#/$defs/Option"
                     },
-                    "title": "Options",
+                    "title": "选项列表",
                     "type": "array"
                 }
             },
@@ -97,12 +97,12 @@
             "additionalProperties": false,
             "properties": {
                 "num": {
-                    "title": "Num",
+                    "title": "题号",
                     "type": "integer"
                 },
                 "title": {
                     "default": "",
-                    "title": "Title",
+                    "title": "题干",
                     "type": "string"
                 },
                 "type": {
@@ -113,7 +113,7 @@
                 },
                 "required": {
                     "default": true,
-                    "title": "Required",
+                    "title": "是否必填",
                     "type": "boolean"
                 },
                 "prompt": {
@@ -126,13 +126,13 @@
                         }
                     ],
                     "default": null,
-                    "title": "Prompt"
+                    "title": "填报提示"
                 },
                 "blank_count": {
                     "default": 2,
                     "description": "fill_blank 类型的多项填空题，空格数必须大于 1",
                     "minimum": 2,
-                    "title": "Blank Count",
+                    "title": "空格数量",
                     "type": "integer"
                 },
                 "regex": {
@@ -148,7 +148,29 @@
                         }
                     ],
                     "default": null,
-                    "title": "Regex"
+                    "title": "正则校验规则"
+                },
+                "default_blank_text": {
+                    "anyOf": [
+                        {
+                            "additionalProperties": {
+                                "type": "string"
+                            },
+                            "type": "object"
+                        },
+                        {
+                            "items": {
+                                "type": "string"
+                            },
+                            "type": "array"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "description": "各空格的默认填充文本。dict 格式：键为空格序号（从1起），值为默认文本；list 格式：按顺序对应每个空格，长度须等于 blank_count。",
+                    "title": "默认填充文本"
                 }
             },
             "required": [
@@ -162,7 +184,7 @@
             "description": "选项的定义",
             "properties": {
                 "text": {
-                    "title": "Text",
+                    "title": "选项文本",
                     "type": "string"
                 },
                 "additional_text": {
@@ -175,7 +197,7 @@
                         }
                     ],
                     "default": false,
-                    "title": "Additional Text"
+                    "title": "附加文本"
                 }
             },
             "required": [
@@ -188,12 +210,12 @@
             "additionalProperties": false,
             "properties": {
                 "num": {
-                    "title": "Num",
+                    "title": "题号",
                     "type": "integer"
                 },
                 "title": {
                     "default": "",
-                    "title": "Title",
+                    "title": "题干",
                     "type": "string"
                 },
                 "type": {
@@ -204,7 +226,7 @@
                 },
                 "required": {
                     "default": true,
-                    "title": "Required",
+                    "title": "是否必填",
                     "type": "boolean"
                 },
                 "prompt": {
@@ -217,13 +239,13 @@
                         }
                     ],
                     "default": null,
-                    "title": "Prompt"
+                    "title": "填报提示"
                 },
                 "options": {
                     "items": {
                         "$ref": "#/$defs/Option"
                     },
-                    "title": "Options",
+                    "title": "选项列表",
                     "type": "array"
                 }
             },
@@ -238,12 +260,12 @@
             "additionalProperties": false,
             "properties": {
                 "num": {
-                    "title": "Num",
+                    "title": "题号",
                     "type": "integer"
                 },
                 "title": {
                     "default": "",
-                    "title": "Title",
+                    "title": "题干",
                     "type": "string"
                 },
                 "type": {
@@ -254,7 +276,7 @@
                 },
                 "required": {
                     "default": true,
-                    "title": "Required",
+                    "title": "是否必填",
                     "type": "boolean"
                 },
                 "prompt": {
@@ -267,7 +289,7 @@
                         }
                     ],
                     "default": null,
-                    "title": "Prompt"
+                    "title": "填报提示"
                 },
                 "length_limit": {
                     "anyOf": [
@@ -279,7 +301,7 @@
                         }
                     ],
                     "default": null,
-                    "title": "Length Limit"
+                    "title": "字数限制"
                 }
             },
             "required": [
