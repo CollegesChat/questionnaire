@@ -30,6 +30,7 @@ h1 { text-align: center; margin-bottom: 1.5rem; font-size: 1.5rem; }
 .additional-input::placeholder { color: #aaa; }
 .blank-inputs { display: flex; flex-direction: column; gap: 0.5rem; }
 .blank-input { padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.95rem; }
+.blank-input.default-value { color: #999; }
 textarea.blank-input, textarea.text-input { resize: vertical; min-height: 80px; }
 .text-input { width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.95rem; }
 .length-hint { font-size: 0.8rem; color: #999; margin-top: 0.25rem; }

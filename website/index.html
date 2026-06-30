@@ -138,7 +138,9 @@ function renderQuestion(q) {
         }
       }
       const valueAttr = val ? ` value="${val}"` : '';
-      return `<input type="text" class="blank-input" placeholder="空 ${i + 1}"${valueAttr} data-q="${q.num}" data-blank="${i}">`;
+      const classAttr = val ? 'blank-input default-value' : 'blank-input';
+      const defaultAttr = val ? ` data-default="${val}"` : '';
+      return `<input type="text" class="${classAttr}" placeholder="空 ${i + 1}"${valueAttr}${defaultAttr} data-q="${q.num}" data-blank="${i}">`;
     }).join('');
     content = `<div class="blank-inputs">${blanks}</div>`;
   } else if (type === 'text_area') {
@@ -230,6 +232,10 @@ function handleInput(e) {
     if (hint) {
       hint.textContent = `${target.value.length} / ${target.maxLength}`;
     }
+  }
+
+  if (target.classList.contains('blank-input') && target.dataset.default !== undefined) {
+    target.classList.toggle('default-value', target.value === target.dataset.default);
   }
 }
 
