@@ -127,9 +127,19 @@ function renderQuestion(q) {
     content = `<div class="options">${q.options.map((opt, idx) => renderCheckboxOption(q, opt, idx)).join('')}</div>`;
   } else if (type === 'fill_blank') {
     const blankCount = q.blank_count || 2;
-    const blanks = Array.from({ length: blankCount }, (_, i) =>
-      `<input type="text" class="blank-input" placeholder="空 ${i + 1}" data-q="${q.num}" data-blank="${i}">`
-    ).join('');
+    const defaults = q.default_blank_text;
+    const blanks = Array.from({ length: blankCount }, (_, i) => {
+      let val = '';
+      if (defaults) {
+        if (Array.isArray(defaults)) {
+          val = defaults[i] || '';
+        } else {
+          val = defaults[String(i + 1)] || '';
+        }
+      }
+      const valueAttr = val ? ` value="${val}"` : '';
+      return `<input type="text" class="blank-input" placeholder="空 ${i + 1}"${valueAttr} data-q="${q.num}" data-blank="${i}">`;
+    }).join('');
     content = `<div class="blank-inputs">${blanks}</div>`;
   } else if (type === 'text_area') {
     const maxlength = q.length_limit ? `maxlength="${q.length_limit}"` : '';
