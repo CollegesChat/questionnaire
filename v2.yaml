@@ -3,8 +3,8 @@
   title: 如果您在主观题中留下了精彩见解，并希望在最终报告中获得署名，请留下您的常用网名/代号（留空则视为自愿以‘匿名受访者’身份参与开源共享）：[___________]
   type: text_area
   required: false
-  prompt: （1到15字）
-  length_limit: 15
+  prompt: （1到16字）
+  length_limit: 16
 
 - num: 2
   title: 你的学校是全称是？
