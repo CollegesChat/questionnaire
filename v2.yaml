@@ -17,8 +17,8 @@
   regex:
     - ^(201[0-9]|202[0-9])-(0[1-9]|1[0-2])$ # YYYY-MM
     - ^.+$
-
   default_blank_text: { 3: （不愿透露） }
+
 - num: 4
   title: 你的培养层次是？
   options:
@@ -38,6 +38,7 @@
     校区：指学校正式划分、命名的校园区域，例如「XX大学本部校区」「XX大学南校区」「XX大学新校区」。如果学校没有明确的校区划分，或你不清楚自己属于哪个校区，请保持默认值。
   type: fill_blank
   blank_count: 2
+  default_blank_text: { 2: 主校区 }
 
 - num: 6
   title: 学校转专业容易吗？（可选）
