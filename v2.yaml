@@ -279,7 +279,9 @@
         prompt: 多长时间？哪些年级有
     - text: 有晨跑/早起签到/早操/升旗要求
       additional_text: true
-
+    - text: 自由发挥
+      additional_text:
+        required: true
 - num: 28
   title: 每学期跑步打卡的要求是多少公里？（可选，没有请跳过）
   required: false
