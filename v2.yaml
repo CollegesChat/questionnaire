@@ -124,7 +124,7 @@
       additional_text: true
     - text: 八人间
       additional_text: true
-    - text: 八人间或者其他（如单人床、独立单间等）
+    - text: 八人间以上或者其他（如独立单间等）
       additional_text:
         required: true
 
