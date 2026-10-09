@@ -185,13 +185,13 @@
 - num: 17
   title: 晚上宿舍会查寝或封寝吗？
   options:
-    - text: 既严格查寝又按时封寝
+    - text: 既查寝又封寝
       additional_text:
         prompt: 晚归能不能回宿舍？抓到怎么处理？
     - text: 只封寝不查寝
       additional_text:
         prompt: 晚归能不能回宿舍？抓到怎么处理？
-    - text: 偶尔查寝但不封寝
+    - text: 查寝但不封寝
     - text: 不管（无封寝无查寝）
 
 - num: 18
@@ -223,7 +223,7 @@
   options:
     - text: 物价偏高（比校外贵不少）
     - text: 物价正常（与校外基本持平）
-    - text: 物价偏低（与校外便宜）
+    - text: 物价偏低（比校外便宜）
     - text: 种类多
     - text: 种类正常（与校外基本持平）
     - text: 种类少
