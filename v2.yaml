@@ -192,7 +192,9 @@
       additional_text:
         prompt: 晚归能不能回宿舍？抓到怎么处理？
     - text: 查寝但不封寝
+      additional_text: true
     - text: 不管（无封寝无查寝）
+      additional_text: true
 
 - num: 18
   title: 食堂的价格与卫生质量如何？
@@ -281,6 +283,7 @@
       additional_text: true
     - text: 自由发挥
       additional_text:
+        prompt: 公共/专业课上课点名频率、严格程度等
         required: true
 - num: 28
   title: 每学期跑步打卡的要求是多少公里？（可选，没有请跳过）
@@ -297,4 +300,4 @@
 - num: 31
   title: 自由补充
   required: false
-  prompt: 例如是否有无障碍基础设施／校医院服务质量如何 ／是否允许校外租房/走读／考试成绩规则（如：单及格制/双及格制/挂科重修机制） ／学校日常上课点名严不严？专业课和公共课怎么查考勤？等等杂项问题，以及个人感受和要告诉大家的话。
+  prompt: 例如是否有无障碍基础设施／校医院服务质量如何 ／是否允许校外租房/走读／考试成绩规则（如：单及格制/双及格制/挂科重修机制）等等杂项问题，以及个人感受和要告诉大家的话。
