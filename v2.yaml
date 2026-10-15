@@ -129,13 +129,29 @@
         required: true
 
 - num: 12
-  title: 教室和宿舍有空调吗？
+  title: 教室和宿舍有温度调节设施吗？
   type: checkbox
   options:
-    - text: 教室有
+    - text: 教室有空调
       additional_text:
         prompt: 补充说明
-    - text: 宿舍有
+    - text: 宿舍有空调
+      additional_text:
+        prompt: 补充说明
+    - text: 教室有电扇
+      additional_text:
+        prompt: 补充说明
+    - text: 宿舍有电扇
+      additional_text:
+        prompt: 补充说明
+    - text: 其他情况
+      additional_text:
+        prompt: 比如说都没有等情况
+        required: true
+    - text: 教室有暖气/供暖设施
+      additional_text:
+        prompt: 补充说明
+    - text: 宿舍有暖气/供暖设施
       additional_text:
         prompt: 补充说明
 
