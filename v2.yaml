@@ -24,10 +24,10 @@
   options:
     - text: 大专
       additional_text:
-        prompt: 大几？
+        prompt: 大几？/ 已毕业
     - text: 本科
       additional_text:
-        prompt: 大几？
+        prompt: 大几？/ 已毕业
     - text: 硕士研究生
     - text: 博士研究生
 
